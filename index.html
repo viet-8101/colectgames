@@ -2,7 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Nhận Game</title></title>
+<title>Nhận Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
@@ -63,25 +64,30 @@ button {
 @keyframes shakeAnim {
     0% { transform: translateX(-15px) rotate(-10deg); }
     100% { transform: translateX(15px) rotate(10deg); }
-#Made{
+}
+
+#Made {
     position: absolute;
-    top: 50%;
-    left: 90%;
-    transform: translate(-50%, -90%);
+    bottom: 10px;
+    right: 15px;
     display: none;
+    font-size: 14px;
+    color: black;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🔥 HỆ THỐNG GAME VIP 🔥</h1>
+<h1 id="mainTitle">🔥 HỆ THỐNG GAME VIP 🔥</h1>
 <button onclick="startTroll()">Nhận game</button>
 
 <div class="trollText" id="trollText">
     Ai bảo bắt tao tìm nhiều quá làm gì 😏
 </div>
+
 <h1 id="Made">Made by Viet</h1>
+
 <script>
 
 const memes = [
@@ -96,22 +102,24 @@ const finalSound = new Audio("https://tiengdong.com/wp-content/uploads/Cau-noi-s
 
 function startTroll() {
 
-    document.querySelector("h1").style.display = "none";
+    document.getElementById("mainTitle").style.display = "none";
     document.querySelector("button").style.display = "none";
     document.body.style.background = "white";
 
-    // Spawn meme trước
+    // Hiện Made ngay khi spawn meme
+    document.getElementById("Made").style.display = "block";
+
+    // Spawn meme (mỗi meme 1 hình, không nhân bản)
     memes.forEach((src, index) => {
         spawnMeme(src, index === 0);
     });
 
-    // Sau 2.5s mới hiện chữ
+    // 2.5s sau mới hiện chữ
     setTimeout(() => {
         document.getElementById("trollText").style.display = "block";
-        document.getElementById("Made").style.display = "block"
     }, 2500);
 
-    // Sau 5s phát câu cuối
+    // 5s phát câu cuối
     setTimeout(() => {
         finalSound.play().catch(()=>{});
     }, 5000);
