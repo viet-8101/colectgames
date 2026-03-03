@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Troll Meme Final</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    margin-top: 20vh;
+    font-size: 42px;
+    animation: rainbow 1s infinite linear;
+}
+
+@keyframes rainbow {
+    0% { color: red; }
+    25% { color: yellow; }
+    50% { color: lime; }
+    75% { color: cyan; }
+    100% { color: red; }
+}
+
+button {
+    padding: 14px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(45deg, orange, yellow, lime, cyan);
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #000;
+    margin-top: 20px;
+}
+
+.trollText {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    font-size: 36px;
+    font-weight: bold;
+    display: none;
+    color: black;
+}
+
+.meme {
+    position: absolute;
+    width: 170px;
+    pointer-events: none;
+}
+
+.shake {
+    animation: shakeAnim 0.15s infinite alternate;
+}
+
+@keyframes shakeAnim {
+    0% { transform: translateX(-15px) rotate(-10deg); }
+    100% { transform: translateX(15px) rotate(10deg); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🔥 HỆ THỐNG GAME VIP 🔥</h1>
+<button onclick="startTroll()">Nhận game</button>
+
+<div class="trollText" id="trollText">
+    Ai bảo bắt tao tìm nhiều quá làm gì 😏
+</div>
+
+<script>
+
+const memes = [
+    "https://thuvienmeme.com/wp-content/uploads/2024/05/meo-chi-tay-cuoi-ha-ha-vao-mat-ban.jpg",
+    "https://tse4.mm.bing.net/th/id/OIP.J0BrZqhzgq57pVFyBEIT4QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+    "https://wallpaperaccess.com/full/3023222.jpg"
+];
+
+const laughSound = new Audio("https://tiengdong.com/wp-content/uploads/Tieng-cuoi-troll-www_tiengdong_com.mp3");
+const finalSound = new Audio("https://tiengdong.com/wp-content/uploads/Cau-noi-sao-ma-do-duoc-mp3-www_tiengdong_com.mp3");
+
+function startTroll() {
+
+    document.querySelector("h1").style.display = "none";
+    document.querySelector("button").style.display = "none";
+    document.body.style.background = "white";
+
+    // Spawn meme trước
+    memes.forEach((src, index) => {
+        spawnMeme(src, index === 0);
+    });
+
+    // Sau 2.5s mới hiện chữ
+    setTimeout(() => {
+        document.getElementById("trollText").style.display = "block";
+    }, 2500);
+
+    // Sau 5s phát câu cuối
+    setTimeout(() => {
+        finalSound.play().catch(()=>{});
+    }, 5000);
+}
+
+function spawnMeme(src, isMain) {
+
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "meme";
+
+    if (isMain) {
+        img.classList.add("shake");
+        laughSound.play().catch(()=>{});
+    }
+
+    document.body.appendChild(img);
+
+    let x = Math.random() * (window.innerWidth - 170);
+    let y = Math.random() * (window.innerHeight - 170);
+
+    let dx = (Math.random() * 4 + 2) * (Math.random()<0.5?1:-1);
+    let dy = (Math.random() * 4 + 2) * (Math.random()<0.5?1:-1);
+
+    function move() {
+        x += dx;
+        y += dy;
+
+        if (x < 0 || x > window.innerWidth - 170) dx = -dx;
+        if (y < 0 || y > window.innerHeight - 170) dy = -dy;
+
+        img.style.left = x + "px";
+        img.style.top = y + "px";
+
+        requestAnimationFrame(move);
+    }
+
+    move();
+}
+
+</script>
+
+</body>
+</html>
