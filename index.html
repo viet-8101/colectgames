@@ -63,6 +63,12 @@ button {
 @keyframes shakeAnim {
     0% { transform: translateX(-15px) rotate(-10deg); }
     100% { transform: translateX(15px) rotate(10deg); }
+#Made{
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -90%);
+    display: none;
 }
 </style>
 </head>
@@ -75,7 +81,7 @@ button {
 <div class="trollText" id="trollText">
     Ai bảo bắt tao tìm nhiều quá làm gì 😏
 </div>
-
+<h1 id="Made">Made by Viet</h1>
 <script>
 
 const memes = [
@@ -102,6 +108,7 @@ function startTroll() {
     // Sau 2.5s mới hiện chữ
     setTimeout(() => {
         document.getElementById("trollText").style.display = "block";
+        document.getElementById("Made").style.display = "block"
     }, 2500);
 
     // Sau 5s phát câu cuối
